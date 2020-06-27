@@ -1,4 +1,5 @@
 import { formdata } from '~/mixins/formdata'
+import { v4 as uid } from 'uuid'
 
 const entityDefault =
 {

@@ -1,5 +1,5 @@
 #### Зависимости
-`npm i form-data-to-object`
+`npm i form-data-to-object uuid`
 
 ### Entity.js
 - Заменить entities и entity
