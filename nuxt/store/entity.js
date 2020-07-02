@@ -111,5 +111,24 @@ export const actions =
         {
             dispatch('snackbar', error.response.data[0].message, { root: true })
         }
+    },
+    async entitySort({ state, dispatch })
+    {
+        try
+        {
+            let sort = state.newbuildings.map((item, index) =>
+            ({
+                id: item.id,
+                sort: index,
+            }))
+
+            sort = { sort }
+
+            await this.$axios.$post(`/entities/sort`, formdata(sort))
+        }
+        catch (error)
+        {
+            dispatch('snackbar', error.response.data[0].message, { root: true })
+        }
     }
 }
