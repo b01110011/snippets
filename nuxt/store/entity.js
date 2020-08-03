@@ -1,5 +1,6 @@
 import { formdata } from '~/mixins/formdata'
 import { v4 as uid } from 'uuid'
+import _ from 'lodash'
 
 const entityDefault =
 {
@@ -12,7 +13,7 @@ const entityDefault =
 export const state = () =>
 ({
     entities: [],
-    entity: { ...entityDefault },
+    entity: _.cloneDeep(entityDefault),
     entityID: 0
 })
 
@@ -48,7 +49,7 @@ export const mutations =
     },
     entityClear(state)
     {
-        state.entity = { ...entityDefault }
+        state.entity = _.cloneDeep(entityDefault)
     }
 }
 
