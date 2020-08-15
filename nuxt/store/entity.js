@@ -69,7 +69,8 @@ export const actions =
     {
         try
         {
-            const entityData = {
+            const entityData =
+            {
                 ...state.entity
             }
 
@@ -87,7 +88,8 @@ export const actions =
     {
         try
         {
-            const entityData = {
+            const entityData =
+            {
                 ...state.entity
             }
 
@@ -125,7 +127,7 @@ export const actions =
 
             sort = { sort }
 
-            await this.$axios.$post(`/entities/sort`, formdata(sort))
+            await this.$axios.$post(`/entities/sort`, sort)
         }
         catch (error)
         {
