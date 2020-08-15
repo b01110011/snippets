@@ -1,5 +1,3 @@
-require('dotenv').config()
-
 import vuetify from './settings/vuetify'
 import serverMiddleware from './settings/serverMiddleware'
 import auth from './settings/auth'
