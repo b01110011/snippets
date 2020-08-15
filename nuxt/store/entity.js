@@ -69,12 +69,12 @@ export const actions =
     {
         try
         {
-            const entityData =
+            const data =
             {
                 ...state.entity
             }
 
-            const entity = await this.$axios.$post('/entities', formdata(entityData))
+            const entity = await this.$axios.$post('/entities', formdata(data))
             commit('entityCreate', entity)
             dispatch('snackbar', 'Сущность успешно добавлена!', { root: true })
             this.$router.push('/admin/entities/')
@@ -88,12 +88,12 @@ export const actions =
     {
         try
         {
-            const entityData =
+            const data =
             {
                 ...state.entity
             }
 
-            const entity = await this.$axios.$put(`/entities/${state.entity.id}`, formdata(entityData))
+            const entity = await this.$axios.$put(`/entities/${state.entity.id}`, formdata(data))
             commit('entityUpdate', entity)
             dispatch('snackbar', 'Сущность успешно отредактирована!', { root: true })
             this.$router.push('/admin/entities/')
