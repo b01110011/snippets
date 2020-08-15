@@ -1,3 +1,3 @@
-#### Зависимости
-`npm i vue-phone-number-input`
-`npm i @nuxtjs/auth`
+#### Зависимости  
+`npm i vue-phone-number-input`  
+`npm i @nuxtjs/auth`  
