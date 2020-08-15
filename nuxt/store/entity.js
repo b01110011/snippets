@@ -133,5 +133,20 @@ export const actions =
         {
             dispatch('snackbar', error.response.data[0].message, { root: true })
         }
+    },
+    async entityBoolean({ state, dispatch })
+    {
+        try
+        {
+            let entity = state.entities.find(entity => entity.id == state.entityID)
+            let active = !entity.active
+
+            await this.$axios.$post(`/entities/${state.entityID}/active`, { active })
+            commit('entityUpdate', { ...entity, active })
+        }
+        catch (error)
+        {
+            dispatch('snackbar', error.response.data[0].message, { root: true })
+        }
     }
 }
