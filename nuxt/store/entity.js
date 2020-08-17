@@ -141,7 +141,7 @@ export const actions =
             dispatch('snackbar', error.response.data[0].message, { root: true })
         }
     },
-    async delete({ state, commit })
+    async delete({ state, commit, dispatch })
     {
         try
         {
