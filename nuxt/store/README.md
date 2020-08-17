@@ -1,7 +1,6 @@
 #### Зависимости
-`npm i form-data-to-object uuid`
+`npm i form-data-to-object uuid vue-lodash lodash`
 
 ### Entity.js
-- Заменить entities и entity
+- заменить путь к апи
 - изменить сообщение в snackbar
-- Если не нужна сортировка, то удалить
