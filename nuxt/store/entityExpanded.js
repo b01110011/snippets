@@ -1,4 +1,5 @@
 import { formdata } from '~/mixins/formdata'
+import { v4 as uid } from 'uuid'
 import _ from 'lodash'
 
 const rootUrl = '/newbuildings'
@@ -8,14 +9,39 @@ const byDefault =
     entity:
     {
         id: 0,
+        path: '',
         name: '',
+        floor_min: 0,
+        floor_max: 0,
+        deadline: '',
+        price: 0,
+        metro_ids: [],
+        interior_ids: [],
+        region_id: null,
+        developer_id: null,
+        responsible_id: null,
     },
+    location:
+    {
+        location: [],
+    },
+    locationDescription:
+    {
+        location_description: '',
+    },
+    photo:
+    {
+        photo: null,
+    }
 }
 
 export const state = () =>
 ({
     entities: [],
     entity: _.cloneDeep(byDefault.entity),
+    location: _.cloneDeep(byDefault.location),
+    locationDescription: _.cloneDeep(byDefault.locationDescription),
+    photo: _.cloneDeep(byDefault.photo),
 })
 
 export const mutations =
@@ -142,6 +168,103 @@ export const actions =
             sort = { sort }
 
             await this.$axios.$post(`${rootUrl}/sort`, sort)
+        }
+        catch (error)
+        {
+            dispatch('snackbar', error.response.data[0].message, { root: true })
+        }
+    },
+
+    // активация новостройки
+    async active({ state, commit, dispatch })
+    {
+        try
+        {
+            let entity = state.entities.find(item => item.id == state.entity.id)
+            let active = !entity.active
+
+            await this.$axios.$post(`${rootUrl}/${state.entity.id}/active`, { active })
+            commit('update', { ...entity, active })
+        }
+        catch (error)
+        {
+            dispatch('snackbar', error.response.data[0].message, { root: true })
+        }
+    },
+
+    // популярные новостройки
+    async popular({ state, commit, dispatch })
+    {
+        try
+        {
+            let entity = state.entities.find(item => item.id == state.entity.id)
+            let popular = !entity.popular
+
+            await this.$axios.$post(`${rootUrl}/${state.entity.id}/popular`, { popular })
+            commit('update', { ...entity, popular })
+        }
+        catch (error)
+        {
+            dispatch('snackbar', error.response.data[0].message, { root: true })
+        }
+    },
+
+    // расположение новостройки
+    async location({ state, commit, dispatch })
+    {
+        try
+        {
+            let entity = state.entities.find(item => item.id == state.entity.id)
+
+            const data =
+            {
+                ...state.location
+            }
+
+            const response = await this.$axios.$put(`${rootUrl}/${state.entity.id}/location`, data)
+            commit('update', { ...entity, location: response.location })
+        }
+        catch (error)
+        {
+            dispatch('snackbar', error.response.data[0].message, { root: true })
+        }
+    },
+
+    // описание расположения
+    async newbuildingLocationDescription({ state, commit, dispatch })
+    {
+        try
+        {
+            let entity = state.entities.find(item => item.id == state.entity.id)
+
+            const data =
+            {
+                ...state.locationDescription
+            }
+
+            const response = await this.$axios.$put(`${rootUrl}/${state.entity.id}/location-description`, data)
+            commit('update', { ...entity, location_description: response.location_description })
+        }
+        catch (error)
+        {
+            dispatch('snackbar', error.response.data[0].message, { root: true })
+        }
+    },
+
+    // главное фото новостройки
+    async photo({ state, commit, dispatch })
+    {
+        try
+        {
+            let entity = state.entities.find(item => item.id == state.entity.id)
+
+            const data =
+            {
+                ...state.photo
+            }
+
+            const response = await this.$axios.$put(`${rootUrl}/${state.entity.id}/photo`, formdata(data))
+            commit('update', { ...entity, photo: response.photo, photo_middle: response.photo_middle, photo_map: response.photo_map, })
         }
         catch (error)
         {
