@@ -2,6 +2,7 @@ import { formdata } from '~/mixins/formdata'
 import _ from 'lodash'
 
 const rootUrl = '/newbuildings'
+const secondUrl = 'gallery'
 
 const byDefault =
 {
@@ -56,7 +57,7 @@ export const actions =
                 ...state.entity
             }
 
-            const response = await this.$axios.$post(`${rootUrl}/${newbuildingID}/gallery`, formdata(data))
+            const response = await this.$axios.$post(`${rootUrl}/${newbuildingID}/${secondUrl}`, formdata(data))
 
             let gallery = newbuilding.gallery.concat(response)
             commit('newbuilding/update', { ...newbuilding, gallery }, { root: true })
@@ -74,7 +75,7 @@ export const actions =
             let galleryID = state.entity.id
             let newbuilding = rootState.newbuilding.entities.find(item => item.id == newbuildingID)
 
-            await this.$axios.$delete(`${rootUrl}/${newbuildingID}/gallery/${galleryID}`)
+            await this.$axios.$delete(`${rootUrl}/${newbuildingID}/${secondUrl}/${galleryID}`)
 
             let gallery = newbuilding.gallery.filter(item => item.id != galleryID)
             commit('newbuilding/update', { ...newbuilding, gallery }, { root: true })
@@ -99,7 +100,7 @@ export const actions =
 
             sort = { sort }
 
-            await this.$axios.$post(`${rootUrl}/${newbuildingID}/gallery/sort`, sort)
+            await this.$axios.$post(`${rootUrl}/${newbuildingID}/${secondUrl}/sort`, sort)
         }
         catch (error)
         {

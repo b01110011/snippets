@@ -1,6 +1,7 @@
 import _ from 'lodash'
 
 const rootUrl = '/newbuildings'
+const secondUrl = 'descriptions'
 
 const byDefault =
 {
@@ -55,7 +56,7 @@ export const actions =
                 ...state.entity
             }
 
-            const response = await this.$axios.$post(`${rootUrl}/${newbuildingID}/descriptions`, data)
+            const response = await this.$axios.$post(`${rootUrl}/${newbuildingID}/${secondUrl}`, data)
 
             let descriptions = newbuilding.descriptions.concat(response)
             commit('newbuilding/update', { ...newbuilding, descriptions }, { root: true })
@@ -78,7 +79,7 @@ export const actions =
                 ...state.entity
             }
 
-            const response = await this.$axios.$put(`${rootUrl}/${newbuildingID}/descriptions/${descriptionID}`, data)
+            const response = await this.$axios.$put(`${rootUrl}/${newbuildingID}/${secondUrl}/${descriptionID}`, data)
 
             let descriptions = newbuilding.descriptions.map(item => item.id == descriptionID ? response : item)
             commit('newbuilding/update', { ...newbuilding, descriptions }, { root: true })
@@ -96,7 +97,7 @@ export const actions =
             let descriptionID = state.entity.id
             let newbuilding = rootState.newbuilding.entities.find(item => item.id == newbuildingID)
 
-            await this.$axios.$delete(`${rootUrl}/${newbuildingID}/descriptions/${descriptionID}`)
+            await this.$axios.$delete(`${rootUrl}/${newbuildingID}/${secondUrl}/${descriptionID}`)
 
             let descriptions = newbuilding.descriptions.filter(item => item.id != descriptionID)
             commit('newbuilding/update', { ...newbuilding, descriptions }, { root: true })
@@ -121,7 +122,7 @@ export const actions =
 
             sort = { sort }
 
-            await this.$axios.$post(`${rootUrl}/${newbuildingID}/descriptions/sort`, sort)
+            await this.$axios.$post(`${rootUrl}/${newbuildingID}/${secondUrl}/sort`, sort)
         }
         catch (error)
         {
