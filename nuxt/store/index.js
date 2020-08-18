@@ -6,17 +6,12 @@ export const state = () =>
         { name: 'Заказать звонок',      alias: 'callback',      admin: false,   link: null,             click: 'callbackDialog',        icon: 'mdi-phone-incoming-outline', },
         { name: 'Админка',              alias: 'admin',         admin: true,    link: '/admin',         click: null,                    icon: 'mdi-cog',                    },
     ],
-    phone: '+7 (383) 000-00-00',
     snackbar: false,
     snackbarText: ''
 })
 
 export const getters =
 {
-    phone(state)
-    {
-        return state.phone.replace(/[^\d+]/g, '')
-    },
     menu(state)
     {
         return state.auth.loggedIn ? state.menu : state.menu.filter(item => !item.admin)
@@ -44,15 +39,27 @@ export const actions =
             let {
                 regions,
                 metros,
+                settings,
+                employees,
             } = await this.$axios.$get('/init')
 
-            commit('region/regions', regions)
-            commit('metro/metros', metros)
+            commit('region/entities', regions)
+            commit('metro/entities', metros)
+            commit('setting/entities', settings)
+            commit('employee/entities', employees)
         }
         catch (e)
         {
             dispatch('snackbar', 'Ошибка получения стартовых данных.')
         }
+    },
+    async adminInit({ commit })
+    {
+        let {
+            employees
+        } = await this.$axios.$get('/init?admin=true')
+
+        commit('employee/entities', employees)
     },
     snackbar({ commit }, message)
     {
