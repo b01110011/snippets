@@ -32,6 +32,7 @@ export default {
         { src: '~/plugins/vue-easy-lightbox.js',    mode: 'client' },
         { src: '~/plugins/vue-editor.js',           mode: 'client' },
         '~/plugins/vue-phone-number-input.js',
+        '~/plugins/v=mask.js',
         '~/plugins/vue-lodash.js',
         '~/plugins/vue-scrollto.js',
         '~/plugins/vuelidate.js',
