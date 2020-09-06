@@ -29,7 +29,7 @@ export const mutations =
             }
         }
     },
-    clear(state, { entity = 'entity' })
+    clear(state, entity = 'entity')
     {
         state[entity] = _.cloneDeep(byDefault[entity])
     },

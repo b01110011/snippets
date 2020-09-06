@@ -47,7 +47,7 @@ export const mutations =
     {
         state.entities = state.entities.filter(item => item.id != state.entity.id)
     },
-    clear(state, { entity = 'entity' })
+    clear(state, entity = 'entity')
     {
         state[entity] = _.cloneDeep(byDefault[entity])
     },
